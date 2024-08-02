@@ -6,6 +6,7 @@ class Labirinto:
         self.linhas = len(self.labirinto)
         self.colunas = len(self.labirinto[0])
         self.visitado = set()
+        
 
     def ler_arquivo(self, arquivo):
         with open(arquivo, 'r') as f:
@@ -24,7 +25,7 @@ class Labirinto:
 
     def busca_em_largura(self):
         fila = deque([(self.inicio, [])])
-        visitado = set()  # Conjunto de visitados local para a busca em largura
+        visitado = set()  
         visitado.add(self.inicio)
 
         while fila:
@@ -35,15 +36,14 @@ class Labirinto:
             for vizinho in self.obter_vizinhos(i, j):
                 if vizinho not in visitado:
                     fila.append((vizinho, caminho + [(i, j)]))
-                    visitado.add(vizinho)  # Marca o vizinho como visitado localmente
-
-        return None  # Sem caminho encontrado
+                    visitado.add(vizinho) 
+        return None  
 
     def busca_em_profundidade(self, i=None, j=None, caminho=None, visitado=None):
         if i is None and j is None:
             i, j = self.inicio
             caminho = []
-            visitado = set()  # Inicializa o conjunto de visitados para este caminho
+            visitado = set()  
 
         if (i, j) == self.saida:
             return caminho + [(i, j)]
@@ -51,7 +51,7 @@ class Labirinto:
         visitado.add((i, j))
         for vizinho in self.obter_vizinhos(i, j):
             if vizinho not in visitado:
-                resultado = self.busca_em_profundidade(*vizinho, caminho + [(i, j)], visitado.copy())  # Passa uma cópia do conjunto
+                resultado = self.busca_em_profundidade(*vizinho, caminho + [(i, j)], visitado.copy())  
                 if resultado:
                     return resultado
 
